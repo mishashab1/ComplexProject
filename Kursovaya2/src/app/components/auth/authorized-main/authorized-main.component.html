@@ -1,0 +1,34 @@
+<div class="bg-white">
+  <div class="min-h-screen">
+    <div class="mx-[10%]">
+      <!--Меню-->
+      <div class="pt-6">
+        <nav class="flex items-center justify-between py-4 border border-white text-white p-4 rounded-md">
+          <a [routerLink]="['/authorized-main']" class="text-back font-Chakra-Petch font-bold text-3xl font-bold">SHOES</a>
+          <div class="flex justify-center text-back items-center ml-auto w-auto">
+            <ul class="flex space-x-14">
+              <li><a [routerLink]="['/shoe-repair']"    class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Ремонт обуви</a></li>
+              <li><a [routerLink]="['/shoes-on-order']" class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Обувь под заказ</a></li>
+              <li><a [routerLink]="['/account']"        class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Аккаунт</a></li>
+              <li class="relative">
+                <a [routerLink]="['/cart-auth']" class="font-Rubik cursor-pointer font-normal rounded-full bg-back text-white px-4 py-2 hover:bg-white hover:text-back border-2 transition duration-200">Корзина</a>
+                <span class="absolute bg-[#d1fe49] left-20 bottom-3 font-Rubik border-2 cursor-default rounded-full text-center min-w-[1.8em]" *ngIf="countCart !== 0">{{ countCart }}</span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <hr>
+      <!--Контент-->
+      <div class="p-4 mt-16">
+        <div class="mt-6 w-full">
+          <div class="vertical-align-middle text-left text-5xl">
+            <span class="text-6xl font-Rubik font-bold text-back">Добро пожаловать<br> в </span>
+            <span class="text-6xl font-Rubik font-bold text-back">Shoes!</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

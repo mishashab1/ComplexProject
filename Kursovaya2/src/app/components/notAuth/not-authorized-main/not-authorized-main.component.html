@@ -1,0 +1,28 @@
+<div class="bg-white">
+  <div class="min-h-screen">
+    <div class="mx-[10%]">
+      <!--Меню-->
+      <div class="pt-6">
+        <nav class="flex items-center justify-between py-4 border border-white text-white p-4 rounded-md">
+          <a [routerLink]="['/not-authorized-main']" class="text-back font-Chakra-Petch font-bold text-3xl font-bold">SHOES</a>
+          <div class="flex justify-center text-back items-center ml-auto w-auto">
+            <ul class="flex space-x-14">
+              <li><a [routerLink]="['/not-auth-shoe-repair']"    class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Ремонт обуви</a></li>
+              <li><a [routerLink]="['/not-auth-shoes-on-order']" class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Обувь под заказ</a></li>
+              <li><a class="font-Rubik cursor-pointer font-normal rounded-full bg-back text-white px-4 py-2 hover:bg-white hover:text-back border-2 transition duration-200" (click)="openModal()">Войти</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <hr>
+      <!--Контент-->
+      <div class="p-4 mt-16 rounded-md w-full flex items-center">
+        <span class="text-6xl font-Rubik font-bold w-1/2 ">Нажмите чтобы зарегистрироваться</span>
+        <div>
+          <button (click)="openModal()" class="font-Rubik cursor-pointer font-normal rounded-full bg-transparent text-back px-4 py-2 hover:bg-back hover:text-white border-2 transition duration-200">Присоединиться</button>
+        </div>
+      </div>
+      <app-login-modal (modalClosed)="onModalClosed()" #loginModal></app-login-modal>
+    </div>
+  </div>
+</div>

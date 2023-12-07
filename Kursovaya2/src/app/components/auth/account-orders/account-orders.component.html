@@ -1,0 +1,91 @@
+<div class="bg-white">
+  <div class="min-h-screen">
+    <div class="mx-[10%]">
+      <!--Меню-->
+      <div class="pt-6">
+        <nav class="flex items-center justify-between py-4 border border-white text-white p-4 rounded-md">
+          <a [routerLink]="['/authorized-main']" class="text-back font-Chakra-Petch font-bold text-3xl font-bold">SHOES</a>
+          <div class="flex justify-center text-back items-center ml-auto w-auto">
+            <ul class="flex space-x-14">
+              <li><a [routerLink]="['/shoe-repair']"    class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Ремонт обуви</a></li>
+              <li><a [routerLink]="['/shoes-on-order']" class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Обувь под заказ</a></li>
+              <li><a [routerLink]="['/account']"        class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Аккаунт</a></li>
+              <li class="relative">
+                <a [routerLink]="['/cart-auth']" class="font-Rubik cursor-pointer font-normal rounded-full bg-back text-white px-4 py-2 hover:bg-white hover:text-back border-2 transition duration-200">Корзина</a>
+                <span class="absolute bg-[#d1fe49] left-20 bottom-3 font-Rubik border-2 cursor-default rounded-full text-center min-w-[1.8em]" *ngIf="countCart !== 0">{{ countCart }}</span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <hr>
+      <!--Контент-->
+      <div class="py-10">
+        <strong [routerLink]="['/account']" class="text-5xl font-Roboto font-bold text-back cursor-pointer">Аккаунт</strong>
+        <strong class="text-5xl font-Roboto font-bold text-back"> -> </strong>
+        <strong [routerLink]="['/account-orders']" class="text-5xl font-Roboto font-bold text-back cursor-pointer">Заказы</strong>
+      </div>
+      <div class="flex pb-5">
+        <div class="flex flex-col text-back space-y-5 w-1/5">
+          <span [routerLink]="['/account-orders']" class="font-Rubik font-normal hover:font-bold cursor-pointer">Заказы</span><hr>
+          <span [routerLink]="['/account-data']" class="font-Rubik font-normal hover:font-bold cursor-pointer">Личные данные</span><hr>
+          <span (click)="logout()" class="font-Rubik font-normal hover:font-bold cursor-pointer hover:text-red-600">Выйти</span>
+        </div>
+
+
+        <div class="pl-5 w-4/5 space-y-5">
+          <div class="p-4 h-auto flex-wrap border border-back border-2 rounded-md duration-300 hover:transform hover:-translate-y-2 hover:z-10" *ngFor="let orderCard of orderCards">
+            <div class="w-full space-x-5">
+              <span class="text-xl font-bold font-Rubik">Заказ № {{orderCard.orderNumber}}</span>
+              <span class="font-bold font-Rubik text-gray-500">Статус: {{getStatusText(orderCard.status)}}</span>
+              <span class="font-bold font-Rubik text-gray-500">Заказ создан: {{orderCard.dateCreate}}</span>
+              <span *ngIf="orderCard.dateEnd" class="font-bold font-Rubik text-gray-500">Заказ завершен: {{orderCard.dateEnd}}</span>
+            </div>
+            <div  *ngFor="let item of orderCard.items" class="flex-col space-y-5">
+              <!-- Отобразить товары -->
+              <div *ngIf="item.hasOwnProperty('color')">
+                <div class="w-full flex flex-wrap mb-5 mt-3">
+                  <img [src]="item.photo" class="h-[4rem] pr-4">
+                  <div class="flex flex-col">
+                    <h1 class="font-bold font-Rubik pr-4">{{item.name}}</h1>
+                    <div class="flex mt-auto space-x-5 pr-4">
+                      <p class="text-gray-500 mt-auto ml-auto font-Rubik">Материал: {{item.material}}</p>
+                      <p class="text-gray-500 mt-auto ml-auto font-Rubik">Цвет: {{item.color}}</p>
+                      <p class="text-gray-500 mt-auto ml-auto font-Rubik">Размер: {{item.measurements}}</p>
+                    </div>
+                  </div>
+                  <div class="flex flex-col ml-auto">
+                    <p class="text-xl font-bold mt-auto ml-auto font-Rubik">{{item.price}} ₽</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Отобразить услуги -->
+              <div *ngIf="!item.hasOwnProperty('color')">
+                <div class="w-full flex flex-wrap mb-5 mt-3">
+                  <div class="flex justify-between w-full items-center">
+                    <h1 class="font-bold font-Rubik pr-4">{{item.name}}</h1>
+                    <button *ngIf="item.photoBefore && item.photoAfter && orderCard.status == 3" class="hover:underline" (click)="openModal(item)">(Смотреть результат)</button>
+                    <p class="text-xl font-bold ml-auto font-Rubik">{{item.price}} ₽</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex justify-between pt-3 items-center">
+              <p class="text-xl font-bold font-Rubik">Итого: {{orderCard.totalPrice}} ₽</p>
+              <p *ngIf="orderCard.express == true" class="px-5 font-bold font-Rubik text-gray-500">Заказ срочный</p>
+              <button (click)="generateCheck(orderCard)" class="py-2 ml-auto mr-4 px-4 text-sm font-medium text-back bg-white rounded-full border border-back border-2 hover:bg-gray-200 active:bg-back active:text-white">Чек</button>
+              <button (click)="generateAct(orderCard)" *ngIf="orderCard.status == 3" class="py-2 px-4 text-sm font-medium text-back bg-white rounded-full border border-back border-2 hover:bg-gray-200 active:bg-back active:text-white">Акт выполненных работ</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-modal-before-after
+        [photoBefore]="selectedItem?.photoBefore"
+        [photoAfter]="selectedItem?.photoAfter"
+        *ngIf="isVisible"
+        (closed)="isVisible = false"
+        #modalBeforeAfter
+      ></app-modal-before-after>
+    </div>
+  </div>
+</div>

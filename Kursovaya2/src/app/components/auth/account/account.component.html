@@ -1,0 +1,38 @@
+<div class="bg-white">
+  <div class="min-h-screen">
+    <div class="mx-[10%]">
+      <!--Меню-->
+      <div class="pt-6">
+        <nav class="flex items-center justify-between py-4 border border-white text-white p-4 rounded-md">
+          <a [routerLink]="['/authorized-main']" class="text-back font-Chakra-Petch font-bold text-3xl font-bold">SHOES</a>
+          <div class="flex justify-center text-back items-center ml-auto w-auto">
+            <ul class="flex space-x-14">
+              <li><a [routerLink]="['/shoe-repair']"    class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Ремонт обуви</a></li>
+              <li><a [routerLink]="['/shoes-on-order']" class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Обувь под заказ</a></li>
+              <li><a [routerLink]="['/account']"        class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Аккаунт</a></li>
+              <li class="relative">
+                <a [routerLink]="['/cart-auth']" class="font-Rubik cursor-pointer font-normal rounded-full bg-back text-white px-4 py-2 hover:bg-white hover:text-back border-2 transition duration-200">Корзина</a>
+                <span class="absolute bg-[#d1fe49] left-20 bottom-3 font-Rubik border-2 cursor-default rounded-full text-center min-w-[1.8em]" *ngIf="countCart !== 0">{{ countCart }}</span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <hr>
+      <!--Контент-->
+      <div class="py-10">
+        <strong class="text-5xl font-Roboto font-bold text-back">Аккаунт</strong>
+      </div>
+
+      <div class="flex flex-col text-back space-y-5 w-1/5">
+        <span [routerLink]="['/account-orders']" class="font-Rubik font-normal hover:font-bold cursor-pointer">Заказы</span><hr>
+        <span [routerLink]="['/account-data']" class="font-Rubik font-normal hover:font-bold cursor-pointer">Личные данные</span><hr>
+        <span (click)="logout()" class="font-Rubik font-normal hover:font-bold cursor-pointer hover:text-red-600">Выйти</span>
+      </div>
+      <div class="w-4/5">
+
+      </div>
+
+    </div>
+  </div>
+</div>

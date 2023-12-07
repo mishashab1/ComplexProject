@@ -1,0 +1,76 @@
+<div class="bg-white">
+  <div class="min-h-screen">
+    <div class="mx-[10%]">
+      <!--Меню-->
+      <div class="pt-6">
+        <nav class="flex items-center justify-between py-4 border border-white text-white p-4 rounded-md">
+          <a [routerLink]="['/authorized-main']" class="text-back font-Chakra-Petch font-bold text-3xl font-bold">SHOES</a>
+          <div class="flex justify-center text-back items-center ml-auto w-auto">
+            <ul class="flex space-x-14">
+              <li><a [routerLink]="['/shoe-repair']"    class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Ремонт обуви</a></li>
+              <li><a [routerLink]="['/shoes-on-order']" class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Обувь под заказ</a></li>
+              <li><a [routerLink]="['/account']"        class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Аккаунт</a></li>
+              <li class="relative">
+                <a [routerLink]="['/cart-auth']" class="font-Rubik cursor-pointer font-normal rounded-full bg-back text-white px-4 py-2 border hover:bg-white hover:text-back border-2 transition duration-300">Корзина</a>
+                <span class="absolute bg-[#d1fe49] left-20 bottom-3 font-Rubik border-2 cursor-default rounded-full text-center min-w-[1.8em]" *ngIf="countCart !== 0">{{ countCart }}</span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <hr>
+      <!--Контент-->
+      <div class="py-10">
+        <strong class="text-5xl font-Roboto font-bold text-back">Корзина</strong>
+      </div>
+
+
+      <div class="space-y-5 grid grid-cols text-back">
+        <div *ngFor="let item of shoes" class="p-4 h-[10rem] flex flex-wrap border border-back border-2 rounded-md duration-200 hover:transform hover:-translate-y-2 hover:z-10">
+          <img src="{{ item.photo }}" class="h-full pr-4">
+          <div class="flex flex-col">
+            <h1 class="text-2xl font-bold font-Rubik pr-4">{{ item.name }}</h1>
+            <div class="flex mt-auto space-x-5 pr-4">
+              <p class="text-2xl text-gray-500 mt-auto ml-auto font-Rubik">Материал: {{ item.material }}</p>
+              <p class="text-2xl text-gray-500 mt-auto ml-auto font-Rubik">Цвет: {{ item.color }}</p>
+              <p class="text-2xl text-gray-500 mt-auto ml-auto font-Rubik">Замеры: {{ item.measurements }}</p>
+            </div>
+          </div>
+          <div class="flex flex-col ml-auto">
+            <button (click)="removeFromShoes(item)" type="button" class="mb-auto ml-auto text-gray-400 bg-transparent text-back hover:text-red-600 rounded-lg text-sm p-1.5">
+              <svg aria-hidden="true" class="w-7 h-7 cursor-pointer mb-auto ml-auto" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+            <p class="text-2xl font-bold mt-auto ml-auto font-Rubik">{{ item.price }} ₽</p>
+          </div>
+        </div>
+
+        <div *ngFor="let item of services" class="mt-5 p-4 h-[8rem] flex flex-wrap border border-back border-2 rounded-md duration-300 hover:transform hover:-translate-y-2 hover:z-10">
+          <h1 class="text-2xl font-bold font-Rubik pr-4">{{ item.name }}</h1>
+          <div class="flex flex-col ml-auto">
+            <button (click)="removeFromServices(item)" type="button" class="mb-auto ml-auto text-gray-400 bg-transparent text-back hover:text-red-600 rounded-lg text-sm p-1.5">
+              <svg aria-hidden="true" class="w-7 h-7 cursor-pointer mb-auto ml-auto" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+            <p class="text-2xl font-bold mt-auto ml-auto font-Rubik">{{ item.price }} ₽</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="py-5 mb-5 flex-col ml-auto">
+        <div class="flex ml-auto justify-end items-center mb-4">
+          <input type="checkbox" (change)="updatePriceExpress()" [(ngModel)]="isExpressOrder" class="w-4 h-4 rounded">
+          <label id="checkbox" class="ml-2 text-sm font-medium">Заказ срочный</label>
+        </div>
+        <div class="flex items-center justify-end">
+          <strong class="text-2xl font-bold font-Rubik pr-5">Итого: {{ totalPrice }} ₽</strong>
+          <button (click)="createOrder()" class="py-2 px-4 text-sm font-medium text-back bg-white rounded-full border border-back border-2 hover:bg-back hover:text-white border-2 transition duration-200">Оформить заказ</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

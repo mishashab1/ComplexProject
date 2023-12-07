@@ -1,0 +1,76 @@
+<div class="bg-white">
+  <div class="min-h-screen">
+    <div class="mx-[10%]">
+      <!--Меню-->
+      <div class="pt-6">
+        <nav class="flex items-center justify-between py-4 border border-white text-white p-4 rounded-md">
+          <a [routerLink]="['/authorized-main']" class="text-back font-Chakra-Petch font-bold text-3xl font-bold">SHOES</a>
+          <div class="flex justify-center text-back items-center ml-auto w-auto">
+            <ul class="flex space-x-14">
+              <li><a [routerLink]="['/shoe-repair']"    class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Ремонт обуви</a></li>
+              <li><a [routerLink]="['/shoes-on-order']" class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Обувь под заказ</a></li>
+              <li><a [routerLink]="['/account']"        class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Аккаунт</a></li>
+              <li class="relative">
+                <a [routerLink]="['/cart-auth']" class="font-Rubik cursor-pointer font-normal rounded-full bg-back text-white px-4 py-2 hover:bg-white hover:text-back border-2 transition duration-200">Корзина</a>
+                <span class="absolute bg-[#d1fe49] left-20 bottom-3 font-Rubik border-2 cursor-default rounded-full text-center min-w-[1.8em]" *ngIf="countCart !== 0">{{ countCart }}</span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <hr>
+      <!--Контент-->
+      <div *ngIf="shoe" class="flex py-10">
+        <div class="w-1/2">
+          <img src="{{shoe.photo}}" class="h-[30rem]">
+        </div>
+
+        <div class="flex-col w-1/2 content-center space-y-10">
+          <strong class="text-5xl font-Roboto font-bold text-back">{{shoe.name}}</strong>
+          <div class="flex-col w-full space-y-10 items-center justify-between">
+            <!--Цвет-->
+            <div class="flex w-full items-center">
+              <div class="flex w-full items-center">
+                <div class="w-1/2 flex items-center">
+                  <label for="color" class="text-2xl font-bold font-Rubik w-1/2 items-center">Цвет:</label>
+                </div>
+                <div class="w-1/2">
+                  <input id="color" value="{{shoe.color}}" readonly class="text-xl font-Rubik border border-2 py-1 px-2 rounded-md w-full">
+                </div>
+              </div>
+            </div>
+            <!--Материал-->
+            <div class="flex w-full items-center">
+              <div class="flex w-full items-center">
+                <div class="w-1/2 flex items-center">
+                  <label for="material" class="text-2xl font-bold font-Rubik w-1/2 items-center">Материал:</label>
+                </div>
+                <div class="w-1/2">
+                  <input id="material" value="{{shoe.material}}" readonly class="text-xl font-Rubik border border-2 py-1 px-2 rounded-md w-full">
+                </div>
+              </div>
+            </div>
+            <!--Замеры-->
+            <div class="flex w-full items-center">
+              <div class="w-1/2 flex items-center">
+                <label for="measurenents" class="text-2xl font-bold font-Rubik">Замеры (ДxШxО):</label>
+                <div (click)="openModal()" class="cursor-pointer material-symbols-outlined">info
+                </div>
+              </div>
+              <div class="w-1/2">
+                <input [(ngModel)]="measurements" id="measurenents" class="text-xl font-Rubik border border-2 py-1 px-2 rounded-md w-full">
+              </div>
+            </div>
+          </div>
+          <app-modal-info (modalClosed)="onModalClosed()" #modalInfo></app-modal-info>
+
+          <div class="flex justify-between w-full pt-10 items-center">
+            <label class="text-4xl font-bold font-Rubik">{{shoe.price}} ₽</label>
+            <button (click)="addToCart()" class="py-2 px-4 text-sm font-medium text-back bg-white rounded-full border-back border-2 hover:bg-back hover:text-white border-2 transition duration-200">В корзину</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

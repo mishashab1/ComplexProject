@@ -1,0 +1,85 @@
+<!-- Модальное окно -->
+<div class="fixed inset-0 flex items-center justify-center h-screen" aria-labelledby="modal-title" role="dialog" aria-modal="true" *ngIf="isVisible">
+  <div class="w-full h-full bg-[rgba(255,255,255,0)] flex items-center justify-between backdrop-blur-3xl">
+    <div class="mx-auto my-auto w-72 justify-center items-center">
+
+      <button (click)="closeModal()" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent text-back hover:text-red-600 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+        <svg aria-hidden="true" class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+      </button>
+
+      <div class="loader" *ngIf="isLoading">
+        <i class="loader-el"></i>
+        <i class="loader-el"></i>
+      </div>
+
+      <!-- Форма входа -->
+      <form id="formLogin" *ngIf="selectedTab === 'login' && !twoFactorAuthStep && !showRegistrationForm">
+
+        <div class="rounded-md flex items-center justify-center" role="group">
+          <button (click)="showLogin()" type="button" class="py-2 px-4 text-sm font-bold text-back border-l-2 border-t-2 border-b-2 border-r-1 bg-gray-500 bg-opacity-30 rounded-l-full border active:bg-back active:text-white">
+            Вход
+          </button>
+          <button (click)="showRegistration()" type="button" class="py-2 px-4 text-sm font-medium border-l-1 border-t-2 border-b-2 border-r-2 text-back bg-transparent bg-opacity-0 rounded-r-full border border-b-back active:bg-back active:text-white">
+            Регистрация
+          </button>
+        </div>
+
+        <div class="flex flex-col input-control">
+          <label class="text-back font-medium mt-3 mb-1">Email</label>
+          <input type="email" class="rounded-lg border-b-back bg-transparent border-2 w-full p-2" [(ngModel)]="loginEmail" id="loginEmail" name="loginEmail">
+
+          <label class="text-back font-medium mt-3 mb-1">Пароль</label>
+          <input type="password" class="rounded-lg border-b-back bg-transparent border-2 p-2" [(ngModel)]="loginPassword" id="loginPassword" name="loginPassword">
+
+          <button id="submit" (click)="checkEmailPass()" type="submit" class="w-full mt-10 font-Rubik cursor-pointer font-normal rounded-full bg-transparent text-back px-4 py-2 hover:bg-back hover:text-white border-2 transition duration-200">Войти</button>
+        </div>
+
+      </form>
+
+      <!-- Форма регистрации -->
+      <form *ngIf="selectedTab === 'register' && !twoFactorAuthStep && !twoFactorAuthStep" >
+        <button (click)="closeModal()" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent text-back hover:text-red-600 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+          <svg aria-hidden="true" class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </button>
+        <div class="rounded-md flex items-center justify-center" role="group">
+          <button (click)="showLogin()" type="button" class="py-2 px-4 text-sm font-medium border-r-1 border-t-2 border-b-2 border-l-2 text-back bg-gray-500 bg-opacity-0 rounded-l-full border border-b-back active:bg-back active:text-white">
+            Вход
+          </button>
+          <button (click)="showRegistration()" type="button" class="py-2 px-4 text-sm bg-gray-500 font-bold text-back border-r-2 border-t-2 border-b-2 border-l-1 bg-opacity-30 rounded-r-full border active:bg-back active:text-white">
+            Регистрация
+          </button>
+        </div>
+
+        <div class="flex flex-col">
+
+          <label class="text-back font-medium mt-3 mb-1">Имя*</label>
+          <input type="text" class="rounded-lg border-2 form-control bg-transparent w-full p-2" [(ngModel)]="regFName" id="regFName" name="regFName">
+
+          <label class="text-back font-medium mt-3 mb-1">Номер телефона</label>
+          <input type="tel" class="rounded-lg border-2 form-control bg-transparent w-full p-2" [(ngModel)]="regPhone" id="regPhone" name="regPhone" prefix="+" mask="0(000)000-00-00">
+
+          <label class="text-back font-medium mt-3 mb-1">Email*</label>
+          <input type="email" class="rounded-lg form-control bg-transparent border-2 w-full p-2" [(ngModel)]="regEmail" id="regEmail" name="regEmail">
+
+          <label class="text-back font-medium mt-3 mb-1">Пароль*</label>
+          <input type="password" class=" rounded-lg form-control bg-transparent border-2 p-2" [(ngModel)]="regPassword" id="regPassword"  name="regPassword">
+
+          <label class="text-back font-medium mt-3 mb-1">Повторите пароль*</label>
+          <input type="password" class=" rounded-lg form-control bg-transparent border-2 p-2" [(ngModel)]="regPasswordRepeat" id="regPasswordRepeat" name="regPasswordRepeat">
+
+          <button (click)="checkRegistration()" type="submit" class="w-full mt-10 font-Rubik cursor-pointer font-normal rounded-full bg-transparent text-back px-4 py-2 hover:bg-back hover:text-white border-2 transition duration-200">Зарегистрироваться</button>
+        </div>
+      </form>
+
+      <!-- Форма двухфакторной аутентификации -->
+      <form *ngIf="twoFactorAuthStep">
+        <div class="flex flex-col">
+          <label class="text-back text-center font-medium mt-3 mb-10">Код для подтверждения отправлен <br> на вашу электронную почту: {{ loginEmail }}</label>
+          <input type="text" class="w-32 mx-auto bg-transparent rounded-lg form-control p-2 border-2" id="loginCode" name="loginCode" [(ngModel)]="loginCode">
+          <button (click)="checkAuthCode()" type="submit" class="w-32 mx-auto mt-10 py-2 font-medium text-back border-2 bg-transparent bg-opacity-30 rounded-full border active:bg-back active:text-white">Отправить</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center">
+  <div class="backdrop-blur-2xl border-2 rounded-lg p-8 flex flex-col items-center justify-center w-[40%] h-[30%]">
+    <div class="flex">
+      <span class="font-normal text-center">ДxШxО - это замеры длины, ширины и обхвата вашей стопы.
+      Если вы выбрали сапоги, то введите также еще и обхват лодыжки. Вводите замеры через пробел.
+      Также мы можем сами сделать замеры, но для этого вы должны явиться к нам, а это поле оставить пустым.
+      </span>
+      <img src="assets/2530522.jpg" class="h-[10rem]">
+    </div>
+
+    <button (click)="closeModal()" class="border-2 bg-transparent mt-5 px-4 rounded">OK</button>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="bg-white">
+  <div class="min-h-screen">
+    <div class="mx-[10%]">
+      <!--Меню-->
+      <div class="pt-6">
+        <nav class="flex items-center justify-between py-4 border border-white text-white p-4 rounded-md">
+          <a [routerLink]="['/authorized-main']" class="text-back font-Chakra-Petch font-bold text-3xl font-bold">SHOES</a>
+          <div class="flex justify-center text-back items-center ml-auto w-auto">
+            <ul class="flex space-x-14">
+              <li><a [routerLink]="['/shoe-repair']"    class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Ремонт обуви</a></li>
+              <li><a [routerLink]="['/shoes-on-order']" class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Обувь под заказ</a></li>
+              <li><a [routerLink]="['/account']"        class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Аккаунт</a></li>
+              <li class="relative">
+                <a [routerLink]="['/cart-auth']" class="font-Rubik cursor-pointer font-normal rounded-full bg-back text-white px-4 py-2 hover:bg-white hover:text-back border-2 transition duration-200">Корзина</a>
+                <span class="absolute bg-[#d1fe49] left-20 bottom-3 font-Rubik border-2 cursor-default rounded-full text-center min-w-[1.8em]" *ngIf="countCart !== 0">{{ countCart }}</span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <hr>
+      <!--Контент-->
+      <div class="py-10 flex space-x-20 items-center">
+        <strong class="text-5xl font-Roboto font-bold text-back">Обувь под заказ</strong>
+        <div class="flex mr-auto items-center">
+          <p class="font-Roboto font-bold text-back pr-5">Фильтр:</p>
+          <select [(ngModel)]="selectedType" (change)="filterShoesByType()" class="font-Rubik border border-2 py-1 px-2 rounded-md">
+            <option value="all">Все</option>
+            <option *ngFor="let type of shoeTypes" [value]="type.id">{{ type.name }}</option>
+          </select>
+        </div>
+
+      </div>
+      <div href="#" class="mb-10">
+        <div class="space-x-5 space-y-5 grid grid-cols-3 text-back">
+          <div class="mt-5 ml-5 p-4 min-h-[9rem] flex flex-wrap border border-back border-2 rounded-md duration-300 hover:transform hover:-translate-y-2 hover:z-10" *ngFor="let shoe of shoes">
+            <h1 class="text-2xl font-bold font-Rubik">{{shoe.name}}</h1>
+            <img src="{{shoe.photo}}">
+            <div class="flex items-center justify-between w-full mt-auto">
+              <p class="text-2xl font-bold font-Rubik">{{shoe.price}} ₽</p>
+              <button [routerLink]="['/product', shoe.id]" class="py-2 px-4 text-sm font-medium text-back bg-white rounded-full border border-back border-2 hover:bg-gray-200 active:bg-back active:text-white">Подробнее</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

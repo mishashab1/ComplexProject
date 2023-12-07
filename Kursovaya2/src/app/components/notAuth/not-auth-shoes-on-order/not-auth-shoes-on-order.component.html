@@ -1,0 +1,35 @@
+<div class="bg-white">
+  <div class="min-h-screen">
+    <div class="mx-[10%]">
+      <!--Меню-->
+      <div class="pt-6">
+        <nav class="flex items-center justify-between py-4 border border-white text-white p-4 rounded-md">
+          <a [routerLink]="['/not-authorized-main']" class="text-back font-Chakra-Petch font-bold text-3xl font-bold">SHOES</a>
+          <div class="flex justify-center text-back items-center ml-auto w-auto">
+            <ul class="flex space-x-14">
+              <li><a [routerLink]="['/not-auth-shoe-repair']"    class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Ремонт обуви</a></li>
+              <li><a [routerLink]="['/not-auth-shoes-on-order']" class="font-Rubik font-normal rounded-full bg-transparent px-4 py-2 hover:font-bold">Обувь под заказ</a></li>
+              <li><a class="font-Rubik cursor-pointer font-normal rounded-full bg-back text-white px-4 py-2 hover:bg-white hover:text-back border-2 transition duration-200" (click)="loginModal.openModal()">Войти</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <hr>
+      <!--Контент-->
+      <div class="py-10">
+        <strong class="text-5xl font-Roboto font-bold text-back">Обувь под заказ</strong>
+      </div>
+      <app-login-modal #loginModal></app-login-modal>
+      <div class="space-x-5 space-y-5 grid grid-cols-3 text-back">
+        <div class="mt-5 ml-5 p-4 min-h-[9rem] flex flex-wrap border border-back border-2 rounded-md duration-300 hover:transform hover:-translate-y-2 hover:z-10" *ngFor="let Shoe of shoes">
+          <h1 class="text-2xl font-bold font-Rubik">{{Shoe.name}}</h1>
+          <img src="{{Shoe.photo}}">
+          <div class="flex items-center justify-between w-full mt-auto">
+            <p class="text-2xl font-bold font-Rubik">{{Shoe.price}} ₽</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
